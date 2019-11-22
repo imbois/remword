@@ -70,3 +70,4 @@ __单词记忆系统__(__自闭了__)是一个在Android平台下运行的app，
 反馈用户的学习背诵情况，会提供图表来进行遗忘曲线模拟，以及对学习情况展示。
 
 ### 2.4 产品功能框架
+![Image text](https://github.com/kailunsong/remword/blob/master/source/instruction.png)
