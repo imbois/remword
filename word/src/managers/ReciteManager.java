@@ -16,9 +16,10 @@ import models.Word;
  * @author kailun
  */
 public class ReciteManager {
-   public enum Modes {NEW, REVIEW};
+    public enum Modes {NEW, REVIEW};
+	public enum Learn_Modes {INPUT, CHOOSE};
 	private Modes reciteMode = Modes.NEW;
-	
+	private Learn_Modes LearnMode = Learn_Modes.INPUT;
 	private Word currentWord;
 	private int strange = 0;
 	
@@ -39,7 +40,8 @@ public class ReciteManager {
 	public void clearStrange() {
 		strange = 0;
 	}
-	
+
+	public WordManager getWordManager() {return wordManager; }
 	// 返回词库名
 	public String getThesaurusName() {
 		return thesName;
@@ -49,12 +51,16 @@ public class ReciteManager {
 	public Modes getReciteMode() {
 		return reciteMode;
 	}
-	
+
+	public Learn_Modes getLearnMode() { return LearnMode; }
 	// 设置记忆模式
 	public void setReciteMode(Modes mode) {
 		reciteMode = mode;
 	}
-	
+
+	public void setLearnMode(Learn_Modes mode){
+		LearnMode = mode;
+	}
 	// 设置词库
 	public void setThesaurus(String thesPath) throws IOException {
 		wordManager = new WordManager(thesPath);
