@@ -20,6 +20,7 @@
   </component>
   <component name="ProjectId" id="1Ub0KQpFnyWcLuIGVjNtl8p24gW" />
   <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="C:/study/大软/word" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="configurable.group.language" />
   </component>
@@ -63,20 +64,6 @@
       <updated>1575609922764</updated>
     </task>
     <servers />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/memorize/ui/ReciteUI.java</url>
-          <line>322</line>
-          <properties class="memorize.ui.ReciteUI" method="actionPerformed">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/word$Main.ic" NAME="Main Coverage Results" MODIFIED="1576222274493" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

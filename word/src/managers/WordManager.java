@@ -22,7 +22,7 @@ public class WordManager {
     private String thesPath;
 	private String thesName;
 	private int indexBound;	// 词库中记录总条数
-	
+	private Random random = new Random(System.currentTimeMillis());
 	public WordManager(String thesPath) throws IOException {
 		this.thesPath = thesPath;
 		calcIndexBound();
@@ -30,9 +30,9 @@ public class WordManager {
 	
 	// 从词库中随机去取出单词
 	public Word getRandomWord() throws IOException {
-		Random random = new Random(System.currentTimeMillis());
+
 		int index = random.nextInt(indexBound);
-		
+		//System.out.println("WordManager.INDEX:" + index);
 		FileReader fr = new FileReader(thesPath);
 		BufferedReader br = new BufferedReader(fr);
 		String line = br.readLine();// 词库名称

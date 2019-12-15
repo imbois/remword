@@ -42,6 +42,7 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 	final private JButton CH2 = new JButton();
 	final private JButton CH4 = new JButton();
 	final private JButton CH3 = new JButton();
+	final private JButton Next = new JButton();
 	final private JLabel lblStatus = new JLabel();
 
 	final private JMenuBar menuBar = new JMenuBar();
@@ -69,9 +70,8 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 	private String fontPath = "./font";	// 字体路径
 	private String phoneticFontName = "TOPhonetic.ttf";
 	// private String interpFontName = "STFANGSO.TTF";
-	
+	private Random random = new Random(System.currentTimeMillis());
 	private String thesPath = "./thesaurus/TOFEL.txt";	// 默认词库路径
-	
 	public ReciteUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainPanel = new JPanel();
@@ -112,6 +112,7 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 		exitItem.addActionListener(this);
 		SEL1.addActionListener(this);
 		SEL2.addActionListener(this);
+		Next.addActionListener(this);
 		txtChinese.setFocusable(false);
 		this.addKeyListener(this);
 		lblEnglish.addKeyListener(this);
@@ -167,20 +168,46 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 			}
 			reciteManager.nextWord();
 			if(reciteManager.getLearnMode() == ReciteManager.Learn_Modes.CHOOSE) {
-				Random random = new Random(System.currentTimeMillis());
-				int index = random.nextInt(3);
+
+				int index = random.nextInt(4);
+                String interp = new String();;
 				for (int i = 0; i < 4; i++) {
 					if (i == index) {
 						Bvector[index].setText(reciteManager.getWord().interp);
 						Answer = Bvector[index];
 						Answer.setForeground(Color.black);
-					} else {
-						Bvector[i].setText(reciteManager.getWordManager().getRandomWord().interp);
-						Bvector[i].setForeground(Color.black);
 					}
-				}
-			}
-		} catch (IOException e) {
+                    else{
+                        boolean chooseAgain = true;
+                        int j;
+                        while(chooseAgain) {
+                            interp = reciteManager.getWordManager().getRandomWord().interp;
+                            if(interp == reciteManager.getWord().interp) // 随机与正确结果相同
+                                continue;
+                            for (j = 0; j < i; j++) {
+                                if (Bvector[j].getText().equals(interp) ) // 与之前单词存在相同释义
+                                {
+
+                                    break;
+                                }
+                            }
+                            if(i != j && j != 0) // j = 0 第一个单词不用重选
+                                chooseAgain = true;
+                            else
+                                chooseAgain = false;
+                        }
+                        Bvector[i].setText(interp);
+
+                        Bvector[i].setForeground(Color.black);
+                    }
+                    //System.out.println("index="+ index);
+                    //System.out.println("interp:"+ interp);
+                    //System.out.println("answer:" + reciteManager.getWord().interp);
+                    //System.out.println("final:" + Bvector[i].getText());
+				} // end of for
+            }// end of if(reciteManager.getLearnMode() == ReciteManager.Learn_Modes.CHOOSE)
+		} // end of try
+		catch (IOException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
 			System.exit(-1);
 		}
@@ -212,12 +239,14 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 		// 当拼写正确时，忽略一次键盘事件，并产生新词
 		if (isCorrect) {
 			isCorrect = false;
-			nextWord();
+			showDetail();
+			//nextWord();
 			return;
 		}
 		if (isFalse) {
 			isFalse = false;
-			nextWord();
+			showDetail();
+			//nextWord();
 			return;
 		}
 		char ch = event.getKeyChar();
@@ -319,11 +348,102 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 		}
 	}
 
+    public void showDetail(){
+	    mainPanel.removeAll();
+	    mainPanel.repaint();
+
+		GridBagConstraints c = new GridBagConstraints();
+		lblEnglish.setOpaque(true); // 设置不透明
+		lblEnglish.setBackground(Color.yellow);
+		// lblEnglish.setFont(new Font("Bradley Hand ITC", Font.BOLD, 50));
+		lblEnglish.setFont(new Font("Arial", Font.BOLD, 50));
+		lblEnglish.setHorizontalAlignment(JLabel.CENTER);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.anchor = GridBagConstraints.CENTER;
+		c.gridx = 0;
+		c.gridy = 1;
+		//c.gridwidth = 1;
+		//c.gridheight = 2;
+		c.weightx = 1;
+
+		mainPanel.add(lblEnglish, c);
+		lblPhonetic.setOpaque(true);
+		lblPhonetic.setBackground(Color.cyan);
+		// 设置居中
+		lblPhonetic.setHorizontalAlignment(JLabel.CENTER); /// ***************
+		// 获取音标字体
+		try {
+			lblPhonetic.setFont(MyFont.getFont(
+					fontPath, phoneticFontName, Font.PLAIN, 20));
+		} catch (FontFormatException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage());
+			System.exit(-1);
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage());
+			System.exit(-1);
+		}
+		c.fill = GridBagConstraints.BOTH;
+		//c.anchor = GridBagConstraints.CENTER;
+		c.gridx = 0;
+		c.gridy = 2;
+
+		c.weightx = 0;
+		c.weighty = 0.5;
+		mainPanel.add(lblPhonetic, c);
+
+
+		txtChinese.setLineWrap(true);
+
+		txtChinese.setFont(new Font("华文仿宋", Font.PLAIN, 28));
+
+		//txtChinese.setBackground(Color.black);
+		//txtChinese.setForeground(Color.white);
+
+		txtChinese.setEditable(false);
+		//txtChinese.setAlignmentX(JTextArea.CENTER_ALIGNMENT);  // 没用
+		c.fill = GridBagConstraints.BOTH;
+		c.anchor = GridBagConstraints.CENTER;
+		c.gridx = 0;
+		c.gridy = 3;
+		c.weightx = 1;
+		c.weighty = 2;
+		mainPanel.add(txtChinese, c);
+
+		Next.setText("Next");
+		c.fill = GridBagConstraints.BOTH;
+		c.anchor = GridBagConstraints.CENTER;
+		c.gridx = 0;
+		c.gridy = 4;
+		c.gridheight = 1;
+		c.gridwidth = 4;
+		c.weightx = 1;
+		c.weighty = 1;
+		mainPanel.add(Next, c);
+		// 词库名称 wordManager.thesName
+		// lblEnglish.setFont(new Font("Bradley Hand ITC", Font.BOLD, 50));
+		lblStatus.setFont(new Font("宋体", Font.PLAIN, 12));
+		lblStatus.setText(reciteManager.getThesaurusName());
+		c.fill = GridBagConstraints.BOTH;
+		c.gridx = 0;
+		c.gridy = 5;
+		c.weighty = 0.2;
+		mainPanel.add(lblStatus, c);
+
+		lblEnglish.setText(reciteManager.getWord().name);
+		lblEnglish.setForeground(Color.BLACK);
+		lblPhonetic.setText(reciteManager.getWord().phonetic);
+		txtChinese.setText(reciteManager.getWord().interp);
+		System.out.println(reciteManager.getWord().phonetic);
+		System.out.println(reciteManager.getWord().interp);
+		mainPanel.updateUI();
+		//nextWord();
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		if (chooseCorrect) {
 			chooseCorrect = false;
-			nextWord();
+			showDetail();
 			return;
 		}
 		if (event.getSource() == chooseThItem) {
@@ -332,13 +452,15 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 		else if (event.getSource() == LearnItem) {
 			if (reciteManager.getLearnMode() == ReciteManager.Learn_Modes.INPUT){
 				reciteManager.setLearnMode(ReciteManager.Learn_Modes.CHOOSE);
-				LearnItem.setText("选择模式");
+				LearnItem.setText("输入模式");
 				updateUI();
+				nextWord();
 			}
 			else if(reciteManager.getLearnMode() == ReciteManager.Learn_Modes.CHOOSE){
 				reciteManager.setLearnMode(ReciteManager.Learn_Modes.INPUT);
-				LearnItem.setText("输入模式");
+				LearnItem.setText("选择模式");
 				updateUI();
+				nextWord();
 			}
 		}
 		else if (event.getSource() == statItem) {
@@ -362,14 +484,21 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 			reciteManager.setLearnMode(ReciteManager.Learn_Modes.CHOOSE);
 			LearnItem.setText("输入模式");
 			updateUI();
+			nextWord();
 		}
 		else if(event.getSource() == SEL2){
 			reciteManager.setLearnMode(ReciteManager.Learn_Modes.INPUT);
 			LearnItem.setText("选择模式");
 			updateUI();
+			nextWord();
 		}
 		else if (event.getSource() == exitItem){
 			System.exit(0);
+		}
+		else if (event.getSource() == Next){
+
+			updateUI();
+			nextWord();
 		}
 		else if (event.getSource() == Answer){
 			Answer.setForeground(Color.blue);
@@ -485,17 +614,9 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 			c.weighty = 0.2;
 			mainPanel.add(lblStatus, c);
 
-			//mainPanel.requestFocus();
-
 			// 需要重新获取焦点使keytype有效
 			requestFocus(true);
-			/*if(lblEnglish.isFocusable()){
-				lblEnglish.setFocusable(true);
-				lblEnglish.requestFocus();
-			}*/
 
-			//lblPhonetic.addKeyListener(this);
-			//txtChinese.addKeyListener(this);
 
 			nextWord();
 		}
@@ -537,9 +658,62 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 			c.weightx = 0;
 			c.weighty = 0.5;
 			mainPanel.add(lblPhonetic, c);*/
+			lblPhonetic.setOpaque(true);
+			lblPhonetic.setBackground(Color.cyan);
+			// 设置居中
+			lblPhonetic.setHorizontalAlignment(JLabel.CENTER); /// ***************
+			// 获取音标字体
+			try {
+				lblPhonetic.setFont(MyFont.getFont(
+						fontPath, phoneticFontName, Font.PLAIN, 20));
+			} catch (FontFormatException e) {
+				JOptionPane.showMessageDialog(this, e.getMessage());
+				System.exit(-1);
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(this, e.getMessage());
+				System.exit(-1);
+			}
+			c.fill = GridBagConstraints.BOTH;
+			//c.anchor = GridBagConstraints.CENTER;
+			c.gridx = 0;
+			c.gridy = 2;
+
+			c.weightx = 0;
+			c.weighty = 0.5;
+			//mainPanel.add(lblPhonetic, c);
+
+
+			txtChinese.setLineWrap(true);
+
+			txtChinese.setFont(new Font("华文仿宋", Font.PLAIN, 28));
+
+			//txtChinese.setBackground(Color.black);
+			//txtChinese.setForeground(Color.white);
+
+			txtChinese.setEditable(false);
+			//txtChinese.setAlignmentX(JTextArea.CENTER_ALIGNMENT);  // 没用
+			c.fill = GridBagConstraints.BOTH;
+			c.anchor = GridBagConstraints.CENTER;
+			c.gridx = 0;
+			c.gridy = 3;
+			c.weightx = 1;
+			c.weighty = 2;
+			//mainPanel.add(txtChinese, c);
+
+			// 词库名称 wordManager.thesName
+			// lblEnglish.setFont(new Font("Bradley Hand ITC", Font.BOLD, 50));
+			lblStatus.setFont(new Font("宋体", Font.PLAIN, 12));
+			lblStatus.setText(reciteManager.getThesaurusName());
+			c.fill = GridBagConstraints.BOTH;
+			c.gridx = 0;
+			c.gridy = 4;
+			c.weighty = 0.2;
+			//mainPanel.add(lblStatus, c);
+
 			for(int i = 0; i < 4; i++){
 				Bvector[i].setHorizontalAlignment(JButton.CENTER);
 				Bvector[i].setBackground(Color.white);
+				//Bvector[i].setMargin(new java.awt.Insets(0,0,0,0));
 				c.fill = GridBagConstraints.BOTH;
 				c.anchor = GridBagConstraints.CENTER;
 				c.gridx = 0;
@@ -548,9 +722,11 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 				c.weightx = 1;
 				c.weighty = 1;
 				mainPanel.add(Bvector[i], c);
+				//System.out.println(Bvector[i].getText() == ""?"null":Bvector[i].getText());
 			}
 			requestFocus(true);
-			nextWord();
+            //nextWord();
+
 		}
 	}
 }

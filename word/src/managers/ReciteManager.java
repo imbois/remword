@@ -68,6 +68,7 @@ public class ReciteManager {
 	}
 	
 	public Word getWord() {
+		//System.out.println("reciteManager.getWord():" + currentWord.interp);
 		return currentWord;
 	}
 	
@@ -77,6 +78,7 @@ public class ReciteManager {
 		case NEW:
 			do {
 				currentWord = wordManager.getRandomWord();
+				//System.out.println("ReciteManager.nextWord:" + currentWord.interp);
 			}
 			while (currentWord == null || reciteRecordManager.getReciteRecords().contains(currentWord)); // until find a new word not in reciterecords
 			break;
