@@ -12,7 +12,7 @@
 孔祥龙 | 制作ppt | 20%
 # 系统设计
 ### 1. 类图
-![在这里插入图片描述](https://github.com/kailunsong/remword/blob/master/source/time1/%E7%B1%BB%E5%9B%BE.png)
+![在这里插入图片描述](https://github.com/kailunsong/remword/blob/master/source/time1/%E7%B1%BB%E5%9B%BEnew.png)
 Word类：每个单词的基本信息
 Record类：每个对应单词记忆记录的基本信息
 WordManager类：用于对单词进行查找，随机抽取
@@ -21,7 +21,7 @@ ReciteManager类：获取下一个单词，保存记录使运行流程正常进�
 
 
 ### 2. 用例图
-![在这里插入图片描述](https://github.com/kailunsong/remword/blob/master/source/time1/%E7%94%A8%E4%BE%8B%E5%9B%BE.png)
+![在这里插入图片描述](https://github.com/kailunsong/remword/blob/master/source/time1/%E7%94%A8%E5%86%B5%E5%9B%BEnew.png)
 
 ##### 用户用例
 
@@ -32,7 +32,7 @@ ReciteManager类：获取下一个单词，保存记录使运行流程正常进�
 
 
 ### 3. 时序图
-![在这里插入图片描述](https://github.com/kailunsong/remword/blob/master/source/time1/%E6%97%B6%E5%BA%8F%E5%9B%BE.png)
+![在这里插入图片描述](https://github.com/kailunsong/remword/blob/master/source/time1/%E9%A1%BA%E5%BA%8F%E5%9B%BEnew.png)
 用户首先选择词库，后根据显示的单词释义输入单词，根据输入单词正确与否提示用户并加入记录中以供下次复习，且显示下一个单词的释义继续学习。
 
 # UI设计
