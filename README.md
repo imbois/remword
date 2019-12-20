@@ -18,7 +18,5 @@
 
 ## 第三次迭代文档
 第三次迭代文档
-<>
+<https://github.com/kailunsong/remword/blob/master/Third-Iteration.md>
 
-## 第四次迭代
-2019年12月15日  修复了选择模式下随机种子的问题，解决了选项重复bug

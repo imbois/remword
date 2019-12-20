@@ -38,7 +38,7 @@ ReciteManager类：获取下一个单词，保存记录使运行流程正常进�
 ##### 1.2 单词背诵
 可通过键盘输入单词，退格键删除最后一个字母，ESC键清空输入，回车键确定，正确拼写后点击回车进入下一个单词，错误拼写回车后可以看到正确拼写
  
-![在这里插入图片描述](hhttps://github.com/kailunsong/remword/blob/master/source/ver/%E9%BB%98%E5%86%99%E6%AD%A3%E7%A1%AE.PNG)
+![在这里插入图片描述](https://github.com/kailunsong/remword/blob/master/source/ver/%E9%BB%98%E5%86%99%E6%AD%A3%E7%A1%AE.PNG)
 当单词拼写正确时，单词会以蓝色显示。
 ![在这里插入图片描述](https://github.com/kailunsong/remword/blob/master/source/ver/%E9%BB%98%E5%86%99%E9%94%99%E8%AF%AF.PNG)
  
