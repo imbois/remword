@@ -41,6 +41,8 @@ ReciteManager类：获取下一个单词，保存记录使运行流程正常进�
 ![在这里插入图片描述](https://github.com/kailunsong/remword/blob/master/source/ver/%E9%BB%98%E5%86%99%E6%AD%A3%E7%A1%AE.PNG)
 
  当单词拼写正确时，单词会以蓝色显示。
+
+
 ![在这里插入图片描述](https://github.com/kailunsong/remword/blob/master/source/ver/%E9%BB%98%E5%86%99%E9%94%99%E8%AF%AF.PNG)
  
  单词拼写错误时，会以红色显示正确拼写
@@ -52,6 +54,8 @@ ReciteManager类：获取下一个单词，保存记录使运行流程正常进�
 ![在这里插入图片描述](https://github.com/kailunsong/remword/blob/master/source/ver/%E9%80%89%E6%8B%A9%E6%A8%A1%E5%BC%8F%E5%AF%B9.PNG)
 
  当单词点击正确时，会以蓝色显示。
+
+ 
 ![在这里插入图片描述](https://github.com/kailunsong/remword/blob/master/source/ver/%E9%80%89%E6%8B%A9%E6%A8%A1%E5%BC%8F%E9%94%99.PNG)
 
  当单词点击错误时，红色显示。
