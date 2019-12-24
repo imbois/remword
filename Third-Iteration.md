@@ -47,6 +47,10 @@ ReciteManager类：获取下一个单词，保存记录使运行流程正常进�
  
  单词拼写错误时，会以红色显示正确拼写
 
+ ![在这里插入图片描述](https://github.com/kailunsong/remword/blob/master/source/ver/%E9%80%89%E6%8B%A9%E7%BB%86%E8%8A%82.PNG)
+
+ 回车进入下一个词
+
 
 ##### 1.3 单词选择
 点击单词的正确中文意思，点击正确后继续点击可查看具体单词释义，点击错误单词将以红色显示直到点击正确选项为止。
@@ -60,6 +64,15 @@ ReciteManager类：获取下一个单词，保存记录使运行流程正常进�
 
  当单词点击错误时，红色显示。
 
+ ![在这里插入图片描述](https://github.com/kailunsong/remword/blob/master/source/ver/%E6%8B%BC%E5%86%99%E7%BB%86%E8%8A%82.PNG)
+
+ 回车进入下一个词
+
+
+#### 1.4 记录界面
+记录界面是记录当前已记忆单词的首次记忆时间，上次记忆时间，与艾宾浩斯曲线阶段和陌生度；在复习中，通过记忆时间差判断是否需要复习。
+
+![在这里插入图片描述](https://github.com/kailunsong/remword/blob/master/source/ver/%E8%83%8C%E8%AF%B5%E6%83%85%E5%86%B5%E7%BB%9F%E8%AE%A1.PNG)
 
 ##### 2.第三次迭代与前两次相比
 + 第三次迭代与第二次迭代相比，增加了选择模式下背诵单词，更加接近单词app的记忆方式，便于用户操作。
